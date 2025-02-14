@@ -1,0 +1,15 @@
+{
+  "name": "27r-nodejs",
+  "version": "1.0.0",
+  "description": "27r-nodejs-classes",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "author": "Harish",
+  "license": "ISC",
+  "dependencies": {
+    "nodemon": "^3.1.9"
+  }
+}
