@@ -1,22 +1,10 @@
-// // const { fun1, x } = require("./module1");
-// // const { cal } = require("./module2");
-// // console.log("iam main module");
-// // console.log(fun1());
-// // let a = 4;
-// // let b = 5;
-// // console.log(cal(a, b));
-// // console.log(x);
+const http = require("http");
 
-// // "use strict"
-// a=45;
+const server = http.createServer((req, res) => {
+  res.write("welcome to nodejs");
+  res.end("");
+});
 
-// console.log(a)
-
-
-// const data=require("./data.json")
-
-// console.log(data)
-
-
-a=45;
-console.log(a)
+server.listen("3101", "192.168.1.4", () => {
+  console.log("server running");
+});
