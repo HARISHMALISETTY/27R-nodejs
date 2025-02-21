@@ -1,5 +1,6 @@
 const http = require("http");
 const url = require("url");
+const fs = require("fs");
 
 // const server = http.createServer((req, res) => {
 //   res.write("welcome to nodejs");
@@ -47,65 +48,136 @@ const url = require("url");
 //   }
 // });
 
-const server = http.createServer((req, res) => {
-  if (req.method == "GET") {
-    const parsedurl = url.parse(req.url, true);
-    console.log(parsedurl);
-    if (parsedurl.pathname == "/menu") {
-      res.writeHead(200, "ok", { "content-type": "application/json" });
-      res.write(
-        JSON.stringify({
-          veg: [{ panner: "150rs", gobi: "120rs" }],
-          nonveg: [{ chicken: "225rs", fish: "240rs" }],
-          message: "thankyou for order",
-        })
-      );
-      res.end();
-    } else if (parsedurl.pathname == "/menu/veg") {
-      if (parsedurl.query.item == "panner") {
-        res.writeHead(200, "ok", { "content-type": "application/json" });
-        res.write(
-          JSON.stringify({
-            category: "veg",
-            item: parsedurl.query.item,
-            price: parsedurl.query.quantity * 150,
-            message: "thankyou for order",
-          })
-        );
-        res.end();
-      } else if (parsedurl.query.item == "gobi") {
-        res.writeHead(200, "ok", { "content-type": "application/json" });
-        res.write(
-          JSON.stringify({
-            category: "veg",
-            item: parsedurl.query.item,
-            price: parsedurl.query.quantity * 120,
-            message: "thankyou for order",
-          })
-        );
-        res.end();
-      } else {
-        res.writeHead(400, "not found", { "content-type": "application/json" });
-        res.write(JSON.stringify({ message: "item not available" }));
-        res.end();
-      }
-    } else if (parsedurl.pathname == "/menu/nonveg") {
-      res.writeHead(200, "ok", { "content-type": "application/json" });
-      res.write(
-        JSON.stringify({ category: "nonveg", message: "thankyou for order" })
-      );
-      res.end();
-    }
+// const server = http.createServer((req, res) => {
+//   if (req.method == "GET") {
+//     const parsedurl = url.parse(req.url, true);
+//     console.log(parsedurl);
+//     if (parsedurl.pathname == "/menu") {
+//       res.writeHead(200, "ok", { "content-type": "application/json" });
+//       res.write(
+//         JSON.stringify({
+//           veg: [{ panner: "150rs", gobi: "120rs" }],
+//           nonveg: [{ chicken: "225rs", fish: "240rs" }],
+//           message: "thankyou for order",
+//         })
+//       );
+//       res.end();
+//     } else if (parsedurl.pathname == "/menu/veg") {
+//       if (parsedurl.query.item == "panner") {
+//         res.writeHead(200, "ok", { "content-type": "application/json" });
+//         res.write(
+//           JSON.stringify({
+//             category: "veg",
+//             item: parsedurl.query.item,
+//             price: parsedurl.query.quantity * 150,
+//             message: "thankyou for order",
+//           })
+//         );
+//         res.end();
+//       } else if (parsedurl.query.item == "gobi") {
+//         res.writeHead(200, "ok", { "content-type": "application/json" });
+//         res.write(
+//           JSON.stringify({
+//             category: "veg",
+//             item: parsedurl.query.item,
+//             price: parsedurl.query.quantity * 120,
+//             message: "thankyou for order",
+//           })
+//         );
+//         res.end();
+//       } else {
+//         res.writeHead(400, "not found", { "content-type": "application/json" });
+//         res.write(JSON.stringify({ message: "item not available" }));
+//         res.end();
+//       }
+//     } else if (parsedurl.pathname == "/menu/nonveg") {
+//       res.writeHead(200, "ok", { "content-type": "application/json" });
+//       res.write(
+//         JSON.stringify({ category: "nonveg", message: "thankyou for order" })
+//       );
+//       res.end();
+//     }
 
-    res.end();
-  } else if (req.method == "post") {
-    res.write("post request is not ready yet");
-    res.end();
-  } else {
-    res.write("invalid request");
-    res.end("");
+//     res.end();
+//   } else if (req.method == "post") {
+//     res.write("post request is not ready yet");
+//     res.end();
+//   } else {
+//     res.write("invalid request");
+//     res.end("");
+//   }
+// });
+
+// const server = http.createServer((req, res) => {
+//   if (req.method == "POST") {
+//     let body = "";
+//     req.on("data", (chunk) => {
+//       body += chunk.toString();
+//       console.log(body);
+//     });
+//     req.on("error", (err) => {
+//       console.log(err);
+//       res.write(err);
+//     });
+//     req.on("end", () => {
+//       res.end("data received");
+//     });
+//   }
+// });
+
+const server = http.createServer((req, res) => {
+  if (req.method == "POST") {
+    // fs.readFile(); // executes in asynchronous way
+    // fs.readFileSync() // executes in synchronous way
+    // fs.readFile("./sample.txt", "utf8", (err, data) => {
+    //   if (err) {
+    //     console.log(err);
+    //     res.write(err);
+    //     res.end();
+    //   } else {
+    //     console.log(data);
+    //     // res.write(data);
+    //     res.end();
+    //   }
+    // });
+
+    // fs.readFile("./info.txt", "utf8", (err, data) => {
+    //   if (err) {
+    //     console.log(err);
+    //     res.write(err);
+    //     res.end();
+    //   } else {
+    //     console.log(data);
+    //     // res.write(data)
+    //     res.end();
+    //   }
+    // });
+
+    let ipData = "27r-10kcoders";
+    // fs.writeFile("./info.txt", ipData, (err) => {
+    //   if (err) {
+    //     res.end(err);
+    //   } else {
+    //     res.write("data inserted");
+    //     res.end();
+    //   }
+    // });
+
+
+    fs.appendFile("./info.txt",ipData,(err)=>{
+      if(err){
+        console.log(err);
+        res.end(err)
+      }
+      else{
+        res.end("data appended")
+      }
+    })
   }
 });
-server.listen("3104", () => {
+server.listen("3105", () => {
   console.log("server running");
 });
+
+
+
