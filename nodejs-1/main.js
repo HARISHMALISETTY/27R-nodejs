@@ -1,6 +1,7 @@
 const http = require("http");
 const url = require("url");
 const fs = require("fs");
+const { type } = require("os");
 
 // const server = http.createServer((req, res) => {
 //   res.write("welcome to nodejs");
@@ -126,58 +127,119 @@ const fs = require("fs");
 // });
 
 const server = http.createServer((req, res) => {
+  // if (req.method == "POST") {
+  //   let ipData = "";
+
+  //   req.on("data", (chunk) => {
+  //     ipData += chunk.toString();
+  //   });
+
+  //   req.on("end", () => {
+  //     fs.appendFile("./info.txt", ipData, (err) => {
+  //       if (err) {
+  //         res.write(err);
+  //         res.end();
+  //       } else {
+  //         res.write("data inserted");
+  //         res.end();
+  //       }
+  //     });
+  //   });
+
+  //   // fs.readFile(); // executes in asynchronous way
+  //   // fs.readFileSync() // executes in synchronous way
+  //   // fs.readFile("./sample.txt", "utf8", (err, data) => {
+  //   //   if (err) {
+  //   //     console.log(err);
+  //   //     res.write(err);
+  //   //     res.end();
+  //   //   } else {
+  //   //     console.log(data);
+  //   //     // res.write(data);
+  //   //     res.end();
+  //   //   }
+  //   // });
+
+  //   // fs.readFile("./info.txt", "utf8", (err, data) => {
+  //   //   if (err) {
+  //   //     console.log(err);
+  //   //     res.write(err);
+  //   //     res.end();
+  //   //   } else {
+  //   //     console.log(data);
+  //   //     // res.write(data)
+  //   //     res.end();
+  //   //   }
+  //   // });
+
+  //   // let ipData = "27r-10kcoders";
+  //   // fs.writeFile("./info.txt", ipData, (err) => {
+  //   //   if (err) {
+  //   //     res.end(err);
+  //   //   } else {
+  //   //     res.write("data inserted");
+  //   //     res.end();
+  //   //   }
+  //   // });
+
+  //   // fs.appendFile("./info.txt",ipData,(err)=>{
+  //   //   if(err){
+  //   //     console.log(err);
+  //   //     res.end(err)
+  //   //   }
+  //   //   else{
+  //   //     res.end("data appended")
+  //   //   }
+  //   // })
+  // }
+  // if (req.method == "GET") {
+  //   fs.readFile("./data.json", "utf8", (err, data) => {
+  //     if (err) {
+  //       res.write(err);
+  //       res.end();
+  //     } else {
+  //       res.writeHead(200,"ok",{"content-type":"application/json"})
+  //       // console.log(typeof JSON.parse(data))
+  //       // res.write(data);
+  //       // res.end();
+  //       let existingData=JSON.parse(data);
+  //       existingData.push(5);// array will be updated by adding 5
+  //       console.log(existingData) //[1,2,3,4,5]
+  //       fs.writeFile("./data.json",JSON.stringify(existingData),(err)=>{
+  //         if(err){
+  //           res.write(err)
+  //           res.end()
+  //         }
+  //         else{
+  //           res.write("data updated")
+  //           res.end()
+  //         }
+  //       })
+  //     }
+  //   });
+  // }
+
   if (req.method == "POST") {
-    // fs.readFile(); // executes in asynchronous way
-    // fs.readFileSync() // executes in synchronous way
-    // fs.readFile("./sample.txt", "utf8", (err, data) => {
-    //   if (err) {
-    //     console.log(err);
-    //     res.write(err);
-    //     res.end();
-    //   } else {
-    //     console.log(data);
-    //     // res.write(data);
-    //     res.end();
-    //   }
-    // });
-
-    // fs.readFile("./info.txt", "utf8", (err, data) => {
-    //   if (err) {
-    //     console.log(err);
-    //     res.write(err);
-    //     res.end();
-    //   } else {
-    //     console.log(data);
-    //     // res.write(data)
-    //     res.end();
-    //   }
-    // });
-
-    let ipData = "27r-10kcoders";
-    // fs.writeFile("./info.txt", ipData, (err) => {
-    //   if (err) {
-    //     res.end(err);
-    //   } else {
-    //     res.write("data inserted");
-    //     res.end();
-    //   }
-    // });
-
-
-    fs.appendFile("./info.txt",ipData,(err)=>{
-      if(err){
-        console.log(err);
-        res.end(err)
+    fs.readFile("./data.json", "utf8", (err, data) => {
+      if (err) {
+        res.end(err);
+      } else {
+        let newName = "Ram";
+        let existingData = JSON.parse(data);
+        existingData.push(newName);
+        fs.writeFile("./data.json", JSON.stringify(existingData), (err) => {
+          if (err) {
+            res.write(err);
+            res.end()
+          } else {
+            res.write("data updated");
+            res.end()
+          }
+        });
       }
-      else{
-        res.end("data appended")
-      }
-    })
+    });
   }
 });
 server.listen("3105", () => {
   console.log("server running");
 });
-
-
-
