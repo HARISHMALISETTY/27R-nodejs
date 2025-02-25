@@ -1,7 +1,21 @@
 const http = require("http");
 const url = require("url");
 const fs = require("fs");
-const { type } = require("os");
+const path = require("path");
+
+// console.log(__dirname,"directory");
+// console.log(__filename,"file")
+
+// console.log(path.basename(__dirname))
+// console.log(path.basename(__filename))
+
+// console.log(path.extname(__filename))
+
+// console.log(path.parse(__dirname))
+
+// console.log(path.join("sample","demo","index.js"))
+
+// console.log(path.join(__dirname,"hii.js"))
 
 // const server = http.createServer((req, res) => {
 //   res.write("welcome to nodejs");
@@ -126,120 +140,184 @@ const { type } = require("os");
 //   }
 // });
 
-const server = http.createServer((req, res) => {
-  // if (req.method == "POST") {
-  //   let ipData = "";
+// const server = http.createServer((req, res) => {
+//   // if (req.method == "POST") {
+//   //   let ipData = "";
 
-  //   req.on("data", (chunk) => {
-  //     ipData += chunk.toString();
-  //   });
+//   //   req.on("data", (chunk) => {
+//   //     ipData += chunk.toString();
+//   //   });
 
-  //   req.on("end", () => {
-  //     fs.appendFile("./info.txt", ipData, (err) => {
-  //       if (err) {
-  //         res.write(err);
-  //         res.end();
-  //       } else {
-  //         res.write("data inserted");
-  //         res.end();
-  //       }
-  //     });
-  //   });
+//   //   req.on("end", () => {
+//   //     fs.appendFile("./info.txt", ipData, (err) => {
+//   //       if (err) {
+//   //         res.write(err);
+//   //         res.end();
+//   //       } else {
+//   //         res.write("data inserted");
+//   //         res.end();
+//   //       }
+//   //     });
+//   //   });
 
-  //   // fs.readFile(); // executes in asynchronous way
-  //   // fs.readFileSync() // executes in synchronous way
-  //   // fs.readFile("./sample.txt", "utf8", (err, data) => {
-  //   //   if (err) {
-  //   //     console.log(err);
-  //   //     res.write(err);
-  //   //     res.end();
-  //   //   } else {
-  //   //     console.log(data);
-  //   //     // res.write(data);
-  //   //     res.end();
-  //   //   }
-  //   // });
+//   //   // fs.readFile(); // executes in asynchronous way
+//   //   // fs.readFileSync() // executes in synchronous way
+//   //   // fs.readFile("./sample.txt", "utf8", (err, data) => {
+//   //   //   if (err) {
+//   //   //     console.log(err);
+//   //   //     res.write(err);
+//   //   //     res.end();
+//   //   //   } else {
+//   //   //     console.log(data);
+//   //   //     // res.write(data);
+//   //   //     res.end();
+//   //   //   }
+//   //   // });
 
-  //   // fs.readFile("./info.txt", "utf8", (err, data) => {
-  //   //   if (err) {
-  //   //     console.log(err);
-  //   //     res.write(err);
-  //   //     res.end();
-  //   //   } else {
-  //   //     console.log(data);
-  //   //     // res.write(data)
-  //   //     res.end();
-  //   //   }
-  //   // });
+//   //   // fs.readFile("./info.txt", "utf8", (err, data) => {
+//   //   //   if (err) {
+//   //   //     console.log(err);
+//   //   //     res.write(err);
+//   //   //     res.end();
+//   //   //   } else {
+//   //   //     console.log(data);
+//   //   //     // res.write(data)
+//   //   //     res.end();
+//   //   //   }
+//   //   // });
 
-  //   // let ipData = "27r-10kcoders";
-  //   // fs.writeFile("./info.txt", ipData, (err) => {
-  //   //   if (err) {
-  //   //     res.end(err);
-  //   //   } else {
-  //   //     res.write("data inserted");
-  //   //     res.end();
-  //   //   }
-  //   // });
+//   //   // let ipData = "27r-10kcoders";
+//   //   // fs.writeFile("./info.txt", ipData, (err) => {
+//   //   //   if (err) {
+//   //   //     res.end(err);
+//   //   //   } else {
+//   //   //     res.write("data inserted");
+//   //   //     res.end();
+//   //   //   }
+//   //   // });
 
-  //   // fs.appendFile("./info.txt",ipData,(err)=>{
-  //   //   if(err){
-  //   //     console.log(err);
-  //   //     res.end(err)
-  //   //   }
-  //   //   else{
-  //   //     res.end("data appended")
-  //   //   }
-  //   // })
-  // }
-  // if (req.method == "GET") {
-  //   fs.readFile("./data.json", "utf8", (err, data) => {
-  //     if (err) {
-  //       res.write(err);
-  //       res.end();
-  //     } else {
-  //       res.writeHead(200,"ok",{"content-type":"application/json"})
-  //       // console.log(typeof JSON.parse(data))
-  //       // res.write(data);
-  //       // res.end();
-  //       let existingData=JSON.parse(data);
-  //       existingData.push(5);// array will be updated by adding 5
-  //       console.log(existingData) //[1,2,3,4,5]
-  //       fs.writeFile("./data.json",JSON.stringify(existingData),(err)=>{
-  //         if(err){
-  //           res.write(err)
-  //           res.end()
-  //         }
-  //         else{
-  //           res.write("data updated")
-  //           res.end()
-  //         }
-  //       })
-  //     }
-  //   });
-  // }
+//   //   // fs.appendFile("./info.txt",ipData,(err)=>{
+//   //   //   if(err){
+//   //   //     console.log(err);
+//   //   //     res.end(err)
+//   //   //   }
+//   //   //   else{
+//   //   //     res.end("data appended")
+//   //   //   }
+//   //   // })
+//   // }
+//   // if (req.method == "GET") {
+//   //   fs.readFile("./data.json", "utf8", (err, data) => {
+//   //     if (err) {
+//   //       res.write(err);
+//   //       res.end();
+//   //     } else {
+//   //       res.writeHead(200,"ok",{"content-type":"application/json"})
+//   //       // console.log(typeof JSON.parse(data))
+//   //       // res.write(data);
+//   //       // res.end();
+//   //       let existingData=JSON.parse(data);
+//   //       existingData.push(5);// array will be updated by adding 5
+//   //       console.log(existingData) //[1,2,3,4,5]
+//   //       fs.writeFile("./data.json",JSON.stringify(existingData),(err)=>{
+//   //         if(err){
+//   //           res.write(err)
+//   //           res.end()
+//   //         }
+//   //         else{
+//   //           res.write("data updated")
+//   //           res.end()
+//   //         }
+//   //       })
+//   //     }
+//   //   });
+//   // }
 
-  if (req.method == "POST") {
-    fs.readFile("./data.json", "utf8", (err, data) => {
-      if (err) {
-        res.end(err);
-      } else {
-        let newName = "Ram";
-        let existingData = JSON.parse(data);
-        existingData.push(newName);
-        fs.writeFile("./data.json", JSON.stringify(existingData), (err) => {
-          if (err) {
-            res.write(err);
-            res.end()
-          } else {
-            res.write("data updated");
-            res.end()
-          }
-        });
-      }
-    });
-  }
-});
+//   if (req.method == "POST") {
+//     fs.readFile("./data.json", "utf8", (err, data) => {
+//       if (err) {
+//         res.end(err);
+//       } else {
+//         let newName = "Ram";
+//         let existingData = JSON.parse(data);
+//         existingData.push(newName);
+//         fs.writeFile("./data.json", JSON.stringify(existingData), (err) => {
+//           if (err) {
+//             res.write(err);
+//             res.end()
+//           } else {
+//             res.write("data updated");
+//             res.end()
+//           }
+//         });
+//       }
+//     });
+//   }
+// });
+
+// const server = http.createServer((req, res) => {
+//   if (req.method == "GET") {
+//     fs.readFile("./users.json", "utf8", (err, data) => {
+//       if (err) {
+//         res.end("error");
+//       } else {
+//         console.log( JSON.parse(data));
+//         res.writeHead(200,"ok",{"content-type":"application/json"})
+//         res.write(data);
+//         res.end()
+//       }
+//     });
+//   }
+// });
+
+// const server = http.createServer((req, res) => {
+//   if (req.method == "POST") {
+//     // let ipdata = { id: 4, name: "rahul", location: "bnglr" };
+//     let ipData = "";
+//     req.on("data", (chunk) => {
+//       ipData += chunk.toString();
+//     });
+
+//     req.on("end", () => {
+//       console.log(ipData);
+//       fs.readFile("./users.json", "utf8", (err, data) => {
+//         if (err) {
+//           res.end(err);
+//         } else {
+//           let existingData = JSON.parse(data);
+//           existingData.push(JSON.parse(ipData));
+//           let updatedData = existingData;
+//           fs.writeFile("./users.json", JSON.stringify(updatedData), (err) => {
+//             if (err) {
+//               res.end(err);
+//             } else {
+//               res.write("data updated");
+//               res.end();
+//             }
+//           });
+//         }
+//       });
+//     });
+//   }
+// });
+
+// const server=http.createServer((req,res)=>{
+
+// fs.writeFile("./hello.txt","hiii",(err)=>{
+//   if(err){res.end(err)}
+//   else{
+//     res.end("updated")
+//   }
+// })
+
+// })
+
+// const server = http.createServer((req, res) => {
+//   fs.mkdir(path.join(__dirname, "one", "two"), { recursive: true }, () => {
+//     res.end("created folder");
+//   });
+// });
+
 server.listen("3105", () => {
   console.log("server running");
 });
