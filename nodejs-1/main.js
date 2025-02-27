@@ -318,6 +318,11 @@ const path = require("path");
 //   });
 // });
 
+
+
+
 server.listen("3105", () => {
   console.log("server running");
 });
+
+// EVENT DRIVEN ARCHITECTURE
