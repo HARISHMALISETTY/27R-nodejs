@@ -76,7 +76,7 @@ app.get("/databyName/:name", async (req, res) => {
   }
 });
 
-app.put("/data", () => {});
+
 
 app.listen("3100", () => {
   console.log("server running");
